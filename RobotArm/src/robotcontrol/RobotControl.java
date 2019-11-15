@@ -1,3 +1,6 @@
+package robotcontrol;
+
+import system.Robot;
 
 /**
  * @author Khoa Vu Duy Anh s3678490
@@ -5,7 +8,7 @@
  * @since 19-08-2018
  */
 
-class RobotControl {
+public class RobotControl {
 	private Robot r;
 	public static StringBuilder sb;
 
@@ -33,7 +36,7 @@ class RobotControl {
 
 		// Used to hold the value of block on column
 		int currentColumn = 0;
-		int[] targetColSize = {0,0};
+		int[] targetColSize = { 0, 0 };
 
 		// Find highest bar, highest obstacle
 		int currentBar = 0;
