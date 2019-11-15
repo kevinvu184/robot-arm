@@ -1,7 +1,8 @@
 
-/** @author Khoa Vu Duy Anh s3678490
- *  @version final
- *  @since 19-08-2018	
+/**
+ * @author Khoa Vu Duy Anh s3678490
+ * @version final
+ * @since 19-08-2018
  */
 
 class RobotControl {
@@ -11,6 +12,9 @@ class RobotControl {
 	private final int SOURCE_LOCATION = 10;
 	private final int FIRST_BAR_POSITION = 3;
 	private final int HEIGHT_OF_SECOND_ARM = 1;
+	private final int HEIGHT = 2;
+	private final int WIDTH = 1;
+	private final int DEPTH = 0;
 
 	public RobotControl(Robot r) {
 		this.r = r;
@@ -21,36 +25,26 @@ class RobotControl {
 	}
 
 	public void run(int barHeights[], int blockHeights[]) {
-		int h = 2; // Initial height of arm 1
-		int w = 1; // Initial width of arm 2
-		int d = 0; // Initial depth of arm 3
+		int h = HEIGHT;
+		int w = WIDTH;
+		int d = DEPTH;
 
 		int contractAmt = FIRST_BAR_POSITION;
 
 		// Used to hold the value of block on column
 		int currentColumn = 0;
-		int[] targetColSize = { 0, 0 };
+		int[] targetColSize = {0,0};
 
 		// Find highest bar, highest obstacle
 		int currentBar = 0;
-		int highestObstacle = 0; // Highest Bar without block
-		int highestBar = 0; // Highest Bar with block
-		for (int a = 0; a < barHeights.length; a++) {
-			if (highestObstacle < barHeights[currentBar]) {
-				highestObstacle = barHeights[currentBar];
-			}
-			currentBar++;
-		}
-		highestBar = highestObstacle;
-		currentBar = 0;
+		// Highest Bar without block
+		int highestObstacle = getHighestObstacle(barHeights);
+		// Highest Bar with block
+		int highestBar = highestObstacle;
 
 		// Assign the value that the current block hold
-		int currentBlock = 0;
-		int sourceHt = 0;
-		for (int i = 0; i < blockHeights.length; i++) {
-			currentBlock = i;
-			sourceHt += blockHeights[currentBlock];
-		}
+		int currentBlock = blockHeights.length - 1;
+		int sourceHt = getSourceHeight(blockHeights);
 
 		// Check the sourceHt to start picking the block
 		while (sourceHt > 0) {
@@ -74,9 +68,8 @@ class RobotControl {
 
 			r.pick();
 
-			// Decide block
-			switch (blockHeights[currentBlock]) {
-			case 3:
+			// Decide block size for diff behaviours
+			if (blockHeights[currentBlock] == 3) {
 				// H Up mechanism
 				while (h < highestObstacle + blockHeights[currentBlock] + HEIGHT_OF_SECOND_ARM) {
 					r.up();
@@ -109,9 +102,8 @@ class RobotControl {
 				}
 
 				// Highest bar Update
-				if (highestBar < barHeights[currentBar] + blockHeights[currentBlock]) // compare current highest bar
-																						// with the new bar and block
-				{
+				// compare current highest bar with the new bar and block
+				if (highestBar < barHeights[currentBar] + blockHeights[currentBlock]) {
 					highestBar = barHeights[currentBar] + blockHeights[currentBlock];
 				}
 
@@ -141,9 +133,7 @@ class RobotControl {
 				// Update current bar and contractAmt value
 				currentBar++;
 				contractAmt++;
-				break;
-
-			default:
+			} else {
 				// Determine currentColumn for Part C
 				if (blockHeights[currentBlock] == 2) {
 					currentColumn = 1; // currentColumn 1 will carry block 2
@@ -165,8 +155,8 @@ class RobotControl {
 				}
 
 				// W Contract mechanism
-				while (w != currentColumn + 1) // the real position of column 1,2 = index of the array targetColHt + 1
-				{
+				// the real position of column 1,2 = index of the array targetColHt + 1
+				while (w != currentColumn + 1) {
 					r.contract();
 					w--;
 				}
@@ -201,12 +191,29 @@ class RobotControl {
 
 				// Update the height of target column
 				targetColSize[currentColumn] += blockHeights[currentBlock];
-				break;
 			}
 
 			// Update source height and current block value
 			sourceHt -= blockHeights[currentBlock];
 			currentBlock--;
 		}
+	}
+
+	private int getSourceHeight(int[] blockHeights) {
+		int sourceHt = 0;
+		for (int i = 0; i < blockHeights.length; i++) {
+			sourceHt += blockHeights[i];
+		}
+		return sourceHt;
+	}
+
+	private int getHighestObstacle(int[] barHeights) {
+		int highestObstacle = 0;
+		for (int i = 0; i < barHeights.length; i++) {
+			if (highestObstacle < barHeights[i]) {
+				highestObstacle = barHeights[i];
+			}
+		}
+		return highestObstacle;
 	}
 }
