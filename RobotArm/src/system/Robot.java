@@ -412,6 +412,7 @@ public class Robot extends JPanel {
 		}
 	}
 
+	@Override
 	public void paintComponent(final Graphics paramGraphics) {
 		super.paintComponent(paramGraphics);
 		paramGraphics.drawLine(0, 400, 600, 400);
