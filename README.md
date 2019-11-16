@@ -21,7 +21,14 @@ RMIT - PT Semester 2 2018
 - Blocks must be place directly on their targets, you cannot drop the block from a height and let it fall into place.
 
 ## Demo
+### Youtube
+[![Robot Arm](https://i.imgur.com/mqtXk9p.png)](https://youtu.be/oD0OJVMyHhc)
+### GIF
+![Demo-1](https://thumbs.gfycat.com/AbsoluteLimitedBlacklemur-size_restricted.gif)
 
+![Demo-2](https://thumbs.gfycat.com/HonestOfficialIvorybilledwoodpecker-size_restricted.gif)
+
+![Demo-3](https://thumbs.gfycat.com/RipeKnobbyIberianemeraldlizard-size_restricted.gif)
 
 ## Learning Outcomes
 - Efficient Algorithm design: Business Requirements, 
