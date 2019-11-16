@@ -6,7 +6,7 @@ RMIT - PT Semester 2 2018
 
 
 ## Project Brief
-- Write a program to move the stack of blocks from source to a specified target location.
+- Write a program to move the stack of blocks from source to a specified target location -> Robot must achive minimum movements.
 - Movement of Robot arms, picking and dropping are controlled using the Robot methods described below. 
 
 ## Robot Restrictions
@@ -22,4 +22,8 @@ RMIT - PT Semester 2 2018
 
 ## Demo
 
+
 ## Learning Outcomes
+- Efficient Algorithm design: Business Requirements, 
+- Develop programming and problem solving skills in a step-by-step manner, assisted with visualization. 
+- Fundamental Java coding concept: variable, method, if-else, while, etc
